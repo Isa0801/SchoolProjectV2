@@ -12,7 +12,7 @@ import Nav from './components/NavbarTest';
 import Map from './components/Map';
 import Dashboard from './components/Dashboard';
 import Account from './components/Account';
-import Logout from './components/Logout';
+import Logout from './components/LogOut';
 import PageNotFound from './components/PageNotFound';
 import Home from './components/Home';
 import Login from './components/Login';
