@@ -8,7 +8,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 // Custom components
 // import Nav from "./components/Nav";
-import Nav from './components/NavbarTest';
+import Nav from './components/Nav';
 import Map from './components/Map';
 import Dashboard from './components/Dashboard';
 import Account from './components/Account';
@@ -19,62 +19,120 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Admin from './components/Admin';
 // other imports
-import { Map as MapIcon, Account as AccountIcon, Exit, Dash, } from './components/Icons';
+import { Map as MapIcon, Account as AccountIcon, AccountAdd, Login as LoginIcon, Exit, Dash, } from './components/Icons';
 import { listDeviceEntries } from './API';
 import PrivateRoute from './hocs/PrivateRoute';
 import UnPrivateRoute from './hocs/UnPrivateRoute';
 
 // auth
-import AuthProvider from './Context/AuthContext';
+import { AuthContext } from './Context/AuthContext';
 
 const App = () => {
   // list of pages to render in navbar
-  /*
-  const pageList = [
+
+  const { isAuthenticated, user } = useContext(AuthContext);
+
+  const [pageList, setPageList] = useState([]);
+  
+  // const pageList = [
+  //   {
+  //     page: 1,
+  //     icon: Exit,
+  //     PagePath: '/',
+  //     PageName: 'Home',
+  //   },
+  //   {
+  //     page: 2,
+  //     icon: MapIcon,
+  //     PagePath: '/map',
+  //     PageName: 'Map',
+  //   },
+  //   {
+  //     page: 3,
+  //     icon: Dash,
+  //     PagePath: '/dashboard',
+  //     PageName: 'Dashboard',
+  //   },
+  //   {
+  //     page: 4,
+  //     icon: AccountIcon,
+  //     PagePath: '/account',
+  //     PageName: 'Account',
+  //   },
+  //   {
+  //     page: 5,
+  //     icon: Exit,
+  //     PagePath: '/login',
+  //     PageName: 'Login',
+  //   },
+  //   {
+  //     page: 6,
+  //     icon: Exit,
+  //     PagePath: '/logout',
+  //     PageName: 'Logout',
+  //   },
+  //   {
+  //     page: 7,
+  //     icon: AccountIcon,
+  //     PagePath: '/register',
+  //     PageName: 'Register',
+  //   }
+  // ];
+
+  function updatePageList(){
+
+    let temp;
+
+  if (isAuthenticated) {
+     temp = [
     {
       page: 1,
-      icon: Exit,
-      PagePath: '/',
-      PageName: 'Home',
-    },
-    {
-      page: 2,
       icon: MapIcon,
       PagePath: '/map',
       PageName: 'Map',
     },
     {
-      page: 3,
+      page: 2,
       icon: Dash,
       PagePath: '/dashboard',
       PageName: 'Dashboard',
     },
     {
-      page: 4,
+      page: 3,
       icon: AccountIcon,
       PagePath: '/account',
       PageName: 'Account',
     },
     {
-      page: 5,
+      page: 4,
       icon: Exit,
+      PagePath: '/logout',
+      PageName: 'Logout',
+    }
+
+    ];
+  } else if(!isAuthenticated) {
+
+    temp = [
+    {
+      page: 1,
+      icon: LoginIcon,
       PagePath: '/login',
       PageName: 'Login',
     },
     {
-      page: 6,
-      icon: Exit,
-      PagePath: '/logout',
-      PageName: 'Logout',
-    },
-    {
-      page: 7,
-      icon: AccountIcon,
+      page: 2,
+      icon: AccountAdd,
       PagePath: '/register',
       PageName: 'Register',
     }
   ];
-  */
+  
+
+  }
+
+  setPageList(temp);
+}
 
   // State variable deviceEntries starts of as an empty array
   const [deviceEntries, setDeviceEntries] = useState([]);
@@ -107,13 +165,14 @@ const App = () => {
     getDevices();
     const t1 = performance.now();
     console.log(`Call to getDevices took ${t1 - t0} milliseconds.`);
-  }, []);
+    updatePageList();
+  }, [isAuthenticated]);
 
   return (
     // TODO AUTH
     <div className="jumbotron">
       <BrowserRouter>
-        <Nav />
+      <Nav pageList={pageList} />
         <div style={{ marginLeft: '64px' }}>
           <Route exact path='/' component={Home} />
           {/* <Route exact path='/logout' component={Logout} /> */}
@@ -122,9 +181,10 @@ const App = () => {
           <UnPrivateRoute path='/register' component={Register} />
           
           <PrivateRoute path='/map' roles={['user', 'admin']} component={Map} deviceEntries={deviceEntries} getDevices={getDevices} />
-          <PrivateRoute path='/dashboard' roles={['user', 'admin']} component={Dashboard} />
+          <PrivateRoute path='/dashboard' roles={['user', 'admin']} component={Dashboard} deviceEntries={deviceEntries} />
           <PrivateRoute path='/account' roles={['user', 'admin']} component={Account} />
           <PrivateRoute path='/admin' roles={['admin']} component={Admin} />
+          <PrivateRoute path='/logout' roles={['user', 'admin']} component={Logout} />
         </div>
       </BrowserRouter>
     </div>
@@ -148,13 +208,7 @@ return (
 
             <Route path="/dashboard" exact render={() => <Dashboard />} />
 
-<<<<<<< HEAD
-            <Route path="/dashboard" exact render={() => 
-              <Dashboard deviceEntries={deviceEntries} />
-            } />
-=======
             <Route path="/account" exact render={() => <Account />} />
->>>>>>> 6a0857a96022eb7f8cfdb5a37a59e625e8157cec
 
             <Route path="/logout" exact render={() => <Logout />} />
 

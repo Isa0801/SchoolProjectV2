@@ -1,11 +1,17 @@
 import React from 'react';
+import { Redirect} from 'react-router-dom';
+import AuthService from '../Services/AuthService';
 
-const Logout = () => (
-  <div>
-    <h1>
-      Logout
-    </h1>
-  </div>
-);
+const Logout = () => {
+
+  AuthService.logout().then(data => {
+    console.log(data);
+  });
+
+  
+
+  return (<Redirect to="/" />);
+
+};
 
 export default Logout;

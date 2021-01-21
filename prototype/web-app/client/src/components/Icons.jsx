@@ -1,6 +1,8 @@
 import React from "react";
 import map from "../icons/globe-sharp.svg";
 import account from "../icons/account.svg";
+import accountAdd from "../icons/accountadd.svg";
+import login from "../icons/log-in.svg";
 import exit from "../icons/exit.svg";
 import dash from "../icons/dash.svg";
 
@@ -10,6 +12,14 @@ function Map() {
 
 function Account() {
   return <img width="25px" height="25px" alt="Account" src={account} ></img>;
+}
+
+function AccountAdd() {
+  return <img width="25px" height="25px" alt="Account" src={accountAdd} ></img>;
+}
+
+function Login() {
+  return <img width="25px" height="25px" alt="Exit" src={login} ></img>;
 }
 
 function Exit() {
@@ -25,4 +35,4 @@ function Home() {
 }
 
 
-export { Map, Account, Exit, Dash, Home };
+export { Map, Account, AccountAdd, Login, Exit, Dash, Home };

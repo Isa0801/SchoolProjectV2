@@ -47,6 +47,7 @@ app.use(helmet());
 app.use(cors({
   // We let our app know that we will ONLY accept req from this url
   origin: process.env.CORS_ORIGIN,
+  credentials: true,
 }));
 // Adding json body parsing middleware from express
 app.use(express.json());
