@@ -38,7 +38,10 @@ while(True):
 			db = client[configCred.db]
 			fs = gridfs.GridFS(db)
 
-			deviceId = ObjectId(("0000000"+configCred.user).encode('utf-8').hex())
+			# making id to min and max to 12 char
+			idString = ("0"* (12 - len(configCred.user)) + configCred.user)
+
+			deviceId = ObjectId((idString).encode('utf-8').hex())
 
 			# start camera
 			cam.start()
@@ -75,7 +78,7 @@ while(True):
 
 			# close the cam and db con
 			client.close()
-			cam.stop
+			cam.stop()
 			print("sent")
 		except:
 			print("error")
