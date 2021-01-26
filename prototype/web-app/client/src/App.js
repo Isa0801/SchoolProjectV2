@@ -19,7 +19,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Admin from './components/Admin';
 // other imports
-import { Map as MapIcon, Account as AccountIcon, AccountAdd, Login as LoginIcon, Exit, Dash, } from './components/Icons';
+import { Map as MapIcon, Account as AccountIcon, AccountAdd, Login as LoginIcon, Exit, Dash, Home as HomeIcon } from './components/Icons';
 import { listDeviceEntries } from './API';
 import PrivateRoute from './hocs/PrivateRoute';
 import UnPrivateRoute from './hocs/UnPrivateRoute';
@@ -86,25 +86,32 @@ const App = () => {
   if (isAuthenticated) {
      temp = [
     {
+  
       page: 1,
+      icon: HomeIcon,
+      PagePath: '/',
+      PageName: 'Home',
+    },
+    {
+      page: 2,
       icon: MapIcon,
       PagePath: '/map',
       PageName: 'Map',
     },
     {
-      page: 2,
+      page: 3,
       icon: Dash,
       PagePath: '/dashboard',
       PageName: 'Dashboard',
     },
     {
-      page: 3,
+      page: 4,
       icon: AccountIcon,
       PagePath: '/account',
       PageName: 'Account',
     },
     {
-      page: 4,
+      page: 5,
       icon: Exit,
       PagePath: '/logout',
       PageName: 'Logout',
@@ -115,13 +122,21 @@ const App = () => {
 
     temp = [
     {
+    
       page: 1,
+      icon: HomeIcon,
+      PagePath: '/',
+      PageName: 'Home',
+    },
+    {
+      
+      page: 2,
       icon: LoginIcon,
       PagePath: '/login',
       PageName: 'Login',
     },
     {
-      page: 2,
+      page: 3,
       icon: AccountAdd,
       PagePath: '/register',
       PageName: 'Register',
@@ -176,7 +191,7 @@ const App = () => {
         <div style={{ marginLeft: '64px' }}>
           <Route exact path='/' component={Home} />
           {/* <Route exact path='/logout' component={Logout} /> */}
-
+          
           <UnPrivateRoute path='/login' component={Login} />
           <UnPrivateRoute path='/register' component={Register} />
           

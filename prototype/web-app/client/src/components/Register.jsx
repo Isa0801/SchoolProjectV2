@@ -35,36 +35,46 @@ const Register = props => {
     });
   };
 
+  const tempStyle = {
+    textAlign: "center",
+    width: "99vw",
+    height: "100vh",
+    paddingTop: "5%",
+    backgroundColor: "rgb(27, 28, 34)"
+  };
+
   return (
-    <div>
+    <div style={tempStyle}>
+    <div style={{maxWidth: "25%", margin: "auto", color: "white", minWidth: "20%"}}>
       <h1>Register Page</h1>
       <form onSubmit={onSubmit}>
         <h3>Please Register</h3>
         <label htmlFor="username" className="sr-only">Username: </label>
-        <input type="text"
+        <input style={{margin: "10px 0"}} type="text"
           name="username"
           value={user.username}
           onChange={onChange}
           className="form-control"
           placeholder="Enter Username" />
         <label htmlFor="password" className="sr-only">Password: </label>
-        <input type="password"
+        <input style={{margin: "10px 0"}} type="password"
           name="password"
           value={user.password}
           onChange={onChange}
           className="form-control"
           placeholder="Enter Password" />
         <label htmlFor="role" className="sr-only">Role: </label>
-        <input type="text"
+        <input style={{margin: "10px 0"}} type="text"
           name="role"
           value={user.role}
           onChange={onChange}
           className="form-control"
           placeholder="Enter role (admin/user)" />
-        <button className="btn btn-lg btn-primary btn-block"
+        <button style={{marginTop: "25px"}} className="btn btn-lg btn-primary btn-block"
           type="submit">Register</button>
       </form>
       {message ? <Message message={message} /> : null}
+    </div>
     </div>
   );
 };
